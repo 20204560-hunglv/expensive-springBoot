@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Container,
   Typography,
@@ -8,42 +8,47 @@ import {
   Button,
   Grid,
   Fab,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Add as AddIcon,
   TrendingUp as TrendingUpIcon,
   AccountBalanceWallet as WalletIcon,
   Receipt as ReceiptIcon,
-} from '@mui/icons-material';
-import { useExpense } from '../hooks/useExpense';
-import { useAuth } from '../hooks/useAuth';
+} from "@mui/icons-material";
+import { useExpense } from "../hooks/useExpense";
+import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
   const { user } = useAuth();
-  const { expenses, totalExpense, categories } = useExpense();
+  const { expenses, categories } = useExpense();
   const [showAddExpense, setShowAddExpense] = useState(false);
 
   // Calculate statistics
-  const todayExpenses = expenses.filter(expense => {
+  const todayExpenses = expenses.filter((expense) => {
     const today = new Date().toDateString();
     const expenseDate = new Date(expense.date).toDateString();
     return today === expenseDate;
   });
 
-  const thisMonthExpenses = expenses.filter(expense => {
+  const thisMonthExpenses = expenses.filter((expense) => {
     const today = new Date();
     const expenseDate = new Date(expense.date);
-    return expenseDate.getMonth() === today.getMonth() && 
-           expenseDate.getFullYear() === today.getFullYear();
+    return (
+      expenseDate.getMonth() === today.getMonth() &&
+      expenseDate.getFullYear() === today.getFullYear()
+    );
   });
 
-  const monthlyTotal = thisMonthExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const monthlyTotal = thisMonthExpenses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
   const dailyAverage = monthlyTotal / new Date().getDate();
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(amount);
   };
 
@@ -52,7 +57,11 @@ const Home = () => {
       <Box className="space-y-6">
         {/* Welcome Section */}
         <Box className="text-center mb-8">
-          <Typography variant="h4" component="h1" className="text-white font-bold mb-2">
+          <Typography
+            variant="h4"
+            component="h1"
+            className="text-white font-bold mb-2"
+          >
             Xin chào, {user?.name}! 👋
           </Typography>
           <Typography variant="body1" className="text-white/80">
@@ -127,7 +136,7 @@ const Home = () => {
               <ReceiptIcon className="mr-2" />
               Chi tiêu gần đây
             </Typography>
-            
+
             {expenses.length === 0 ? (
               <Box className="text-center py-8">
                 <Typography variant="body1" color="text.secondary" gutterBottom>
@@ -145,7 +154,9 @@ const Home = () => {
             ) : (
               <Box className="space-y-2">
                 {expenses.slice(0, 5).map((expense) => {
-                  const category = categories.find(c => c.id === expense.categoryId);
+                  const category = categories.find(
+                    (c) => c.id === expense.categoryId
+                  );
                   return (
                     <Box
                       key={expense.id}
@@ -153,24 +164,31 @@ const Home = () => {
                     >
                       <Box className="flex items-center">
                         <Typography className="text-2xl mr-3">
-                          {category?.icon || '📝'}
+                          {category?.icon || "📝"}
                         </Typography>
                         <Box>
-                          <Typography variant="subtitle1" className="font-medium">
-                            {expense.description || 'Không có mô tả'}
+                          <Typography
+                            variant="subtitle1"
+                            className="font-medium"
+                          >
+                            {expense.description || "Không có mô tả"}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
-                            {category?.name} • {new Date(expense.date).toLocaleDateString('vi-VN')}
+                            {category?.name} •{" "}
+                            {new Date(expense.date).toLocaleDateString("vi-VN")}
                           </Typography>
                         </Box>
                       </Box>
-                      <Typography variant="h6" className="font-bold text-red-600">
+                      <Typography
+                        variant="h6"
+                        className="font-bold text-red-600"
+                      >
                         -{formatCurrency(expense.amount)}
                       </Typography>
                     </Box>
                   );
                 })}
-                
+
                 {expenses.length > 5 && (
                   <Box className="text-center pt-4">
                     <Button variant="outlined" href="/history">
@@ -192,12 +210,14 @@ const Home = () => {
             <Grid container spacing={2}>
               {categories.map((category) => {
                 const categoryExpenses = thisMonthExpenses.filter(
-                  expense => expense.categoryId === category.id
+                  (expense) => expense.categoryId === category.id
                 );
                 const categoryTotal = categoryExpenses.reduce(
-                  (sum, expense) => sum + expense.amount, 0
+                  (sum, expense) => sum + expense.amount,
+                  0
                 );
-                const percentage = monthlyTotal > 0 ? (categoryTotal / monthlyTotal) * 100 : 0;
+                const percentage =
+                  monthlyTotal > 0 ? (categoryTotal / monthlyTotal) * 100 : 0;
 
                 return (
                   <Grid item xs={6} sm={4} md={2} key={category.id}>
