@@ -12,6 +12,10 @@ import {
   InputAdornment,
   IconButton,
   Divider,
+  Stack,
+  Checkbox,
+  FormControlLabel,
+  Grid,
 } from "@mui/material";
 import {
   Visibility,
@@ -19,6 +23,9 @@ import {
   Person as PersonIcon,
   Lock as LockIcon,
   Login as LoginIcon,
+  Facebook,
+  Twitter,
+  Google,
 } from "@mui/icons-material";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -30,6 +37,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -82,220 +90,227 @@ const Login = () => {
   };
 
   return (
-    <Container className="min-h-screen" maxWidth="xs">
-      <Paper
-        elevation={6}
-        sx={{
-          padding: 4,
-          borderRadius: 3,
-          bgcolor: "primary.main",
-        }}
-      >
-        {/* Logo và Header */}
-        <Box sx={{ textAlign: "center", mb: 4 }}>
-          <Box
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 60,
-              height: 60,
-              bgcolor: "rgba(255, 255, 255, 0.2)",
-              borderRadius: "50%",
-              mb: 2,
-            }}
-          >
-            <Typography sx={{ fontSize: "2rem" }}>💰</Typography>
-          </Box>
+    <Box className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <Container maxWidth="lg">
+        <Grid container spacing={0} className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+          {/* Left Side - Illustration */}
+          <Grid item xs={12} md={6} className="bg-gradient-to-br from-blue-50 to-indigo-100 p-8 md:p-12">
+            <Box className="h-full flex flex-col justify-center items-center">
+              {/* Illustration Placeholder - You can replace with actual illustration */}
+              <Box className="w-full max-w-md mb-8">
+                <Box className="relative">
+                  {/* Person working on laptop illustration */}
+                  <Box className="bg-white rounded-2xl p-8 shadow-lg">
+                    <Box className="flex justify-center mb-6">
+                      <Box className="w-24 h-24 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full flex items-center justify-center">
+                        <Typography className="text-4xl">👨‍💻</Typography>
+                      </Box>
+                    </Box>
+                    <Typography variant="h5" className="text-center font-bold text-gray-800 mb-2">
+                      Chào mừng trở lại!
+                    </Typography>
+                    <Typography variant="body2" className="text-center text-gray-600">
+                      Đăng nhập để tiếp tục quản lý chi tiêu của bạn
+                    </Typography>
+                  </Box>
+                  
+                  {/* Decorative elements */}
+                  <Box className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-300 rounded-full opacity-60"></Box>
+                  <Box className="absolute -bottom-4 -left-4 w-6 h-6 bg-pink-300 rounded-full opacity-60"></Box>
+                </Box>
+              </Box>
+              
+              {/* Additional decorative elements */}
+              <Box className="flex space-x-2">
+                <Box className="w-3 h-3 bg-blue-400 rounded-full"></Box>
+                <Box className="w-3 h-3 bg-indigo-400 rounded-full"></Box>
+                <Box className="w-3 h-3 bg-purple-400 rounded-full"></Box>
+              </Box>
+            </Box>
+          </Grid>
 
-          <Typography
-            variant="h4"
-            component="h1"
-            sx={{
-              fontWeight: "bold",
-              color: "white",
-              mb: 1,
-            }}
-          >
-            Expensive App
-          </Typography>
+          {/* Right Side - Login Form */}
+          <Grid item xs={12} md={6} className="p-8 md:p-12">
+            <Box className="h-full flex flex-col justify-center">
+              {/* Header */}
+              <Box className="mb-8">
+                <Typography variant="h4" className="font-bold text-gray-900 mb-2">
+                  Đăng nhập
+                </Typography>
+                <Typography variant="body1" className="text-gray-600">
+                  Nhập thông tin để truy cập tài khoản của bạn
+                </Typography>
+              </Box>
 
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{
-              fontWeight: 600,
-              color: "white",
-              mb: 1,
-            }}
-          >
-            Đăng nhập
-          </Typography>
+              {/* Error Alert */}
+              {error && (
+                <Alert severity="error" className="mb-6 rounded-lg">
+                  {error}
+                </Alert>
+              )}
 
-          <Typography
-            variant="body1"
-            sx={{
-              color: "white",
-            }}
-          >
-            Chào mừng bạn trở lại!
-          </Typography>
-        </Box>
+              {/* Login Form */}
+              <Box component="form" onSubmit={handleSubmit} className="space-y-6">
+                {/* Username Field */}
+                <TextField
+                  fullWidth
+                  id="username"
+                  label="Tên đăng nhập"
+                  name="username"
+                  autoComplete="username"
+                  autoFocus
+                  value={formData.username}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon className="text-gray-400" />
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="[&_.MuiOutlinedInput-root]:rounded-lg [&_.MuiOutlinedInput-root]:bg-gray-50"
+                />
 
-        {/* Error Alert */}
-        {error && (
-          <Alert severity="error" sx={{ mb: 3, borderRadius: 2 }}>
-            {error}
-          </Alert>
-        )}
+                {/* Password Field */}
+                <TextField
+                  fullWidth
+                  name="password"
+                  label="Mật khẩu"
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  autoComplete="current-password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  disabled={isLoading}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon className="text-gray-400" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          edge="end"
+                          disabled={isLoading}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  className="[&_.MuiOutlinedInput-root]:rounded-lg [&_.MuiOutlinedInput-root]:bg-gray-50"
+                />
 
-        {/* Form */}
-        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="Tên đăng nhập"
-            name="username"
-            autoComplete="username"
-            autoFocus
-            value={formData.username}
-            onChange={handleChange}
-            disabled={isLoading}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon color="action" />
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                bgcolor: "rgba(255, 255, 255, 0.9)",
-                borderRadius: 2,
-              },
-              "& .MuiInputLabel-root": {
-                color: "rgba(255, 255, 255, 0.9)",
-              },
-            }}
-          />
-
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Mật khẩu"
-            type={showPassword ? "text" : "password"}
-            id="password"
-            autoComplete="current-password"
-            value={formData.password}
-            onChange={handleChange}
-            disabled={isLoading}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon color="action" />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                    disabled={isLoading}
+                {/* Remember Me */}
+                <Box className="flex items-center justify-between">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                        color="primary"
+                      />
+                    }
+                    label="Ghi nhớ đăng nhập"
+                    className="text-sm"
+                  />
+                  <Link
+                    component="button"
+                    type="button"
+                    variant="body2"
+                    className="text-blue-600 hover:text-blue-800 text-sm"
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                bgcolor: "rgba(255, 255, 255, 0.9)",
-                borderRadius: 2,
-              },
-              "& .MuiInputLabel-root": {
-                color: "rgba(255, 255, 255, 0.9)",
-              },
-            }}
-          />
+                    Quên mật khẩu?
+                  </Link>
+                </Box>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={isLoading}
-            startIcon={<LoginIcon />}
-            sx={{
-              mt: 3,
-              mb: 2,
-              py: 1.5,
-              fontSize: "1.1rem",
-              fontWeight: 600,
-              bgcolor: "rgba(255, 255, 255, 0.2)",
-              color: "white",
-              borderRadius: 2,
-            }}
+                {/* Login Button */}
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  disabled={isLoading}
+                  className="py-3 text-lg font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
+                >
+                  {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
+                </Button>
+
+                {/* Divider */}
+                <Box className="relative my-6">
+                  <Divider className="border-gray-300" />
+                  <Typography 
+                    variant="body2" 
+                    className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white px-4 text-gray-500"
+                  >
+                    hoặc
+                  </Typography>
+                </Box>
+
+                {/* Social Login Buttons */}
+                <Box className="space-y-3">
+                  <Typography variant="body2" className="text-center text-gray-600 mb-4">
+                    Đăng nhập bằng
+                  </Typography>
+                  
+                  <Stack direction="row" spacing={2} className="justify-center">
+                    <IconButton 
+                      className="bg-blue-600 text-white hover:bg-blue-700 rounded-lg w-12 h-12"
+                      size="large"
+                    >
+                      <Facebook />
+                    </IconButton>
+                    <IconButton 
+                      className="bg-sky-500 text-white hover:bg-sky-600 rounded-lg w-12 h-12"
+                      size="large"
+                    >
+                      <Twitter />
+                    </IconButton>
+                    <IconButton 
+                      className="bg-red-500 text-white hover:bg-red-600 rounded-lg w-12 h-12"
+                      size="large"
+                    >
+                      <Google />
+                    </IconButton>
+                  </Stack>
+                </Box>
+
+                {/* Sign Up Link */}
+                <Box className="text-center mt-6">
+                  <Typography variant="body2" className="text-gray-600">
+                    Chưa có tài khoản?{" "}
+                    <Link
+                      component="button"
+                      type="button"
+                      variant="body2"
+                      onClick={() => navigate("/register")}
+                      className="text-blue-600 hover:text-blue-800 font-semibold"
+                    >
+                      Đăng ký ngay
+                    </Link>
+                  </Typography>
+                </Box>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+
+        {/* Demo Info */}
+        <Box className="mt-6 text-center">
+          <Paper
+            elevation={2}
+            className="inline-block px-6 py-3 bg-white rounded-xl shadow-lg"
           >
-            {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
-          </Button>
-
-          <Divider sx={{ my: 3, borderColor: "rgba(255, 255, 255, 0.6)" }}>
-            <Typography
-              variant="body2"
-              sx={{ color: "white", fontWeight: 600 }}
-            >
-              hoặc
+            <Typography variant="body2" className="text-blue-600 font-semibold">
+              💡 <strong>Demo:</strong> Nhập bất kỳ tên đăng nhập và mật khẩu nào để thử nghiệm
             </Typography>
-          </Divider>
-
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant="body1" sx={{ color: "white" }}>
-              Chưa có tài khoản?{" "}
-              <Link
-                component="button"
-                type="button"
-                variant="body1"
-                onClick={() => navigate("/register")}
-                sx={{
-                  fontWeight: 700,
-                  color: "white",
-                  textDecoration: "underline",
-                }}
-              >
-                Đăng ký ngay
-              </Link>
-            </Typography>
-          </Box>
+          </Paper>
         </Box>
-      </Paper>
-
-      {/* Demo hint */}
-      <Box sx={{ mt: 3, textAlign: "center" }}>
-        <Paper
-          elevation={2}
-          sx={{
-            display: "inline-block",
-            px: 3,
-            py: 2,
-            bgcolor: "background.paper",
-            borderRadius: 2,
-            maxWidth: "400px",
-          }}
-        >
-          <Typography
-            variant="body2"
-            sx={{ color: "primary.main", fontWeight: 600 }}
-          >
-            💡 <strong>Demo:</strong> Nhập bất kỳ tên đăng nhập và mật khẩu nào
-            để thử nghiệm
-          </Typography>
-        </Paper>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 
