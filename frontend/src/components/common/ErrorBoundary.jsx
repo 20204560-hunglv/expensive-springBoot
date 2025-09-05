@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Typography, Button } from '@mui/material';
+import React from "react";
+import { Box, Typography, Button } from "@mui/material";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -12,33 +12,30 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            minHeight: '100vh',
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "100vh",
             p: 3,
-            textAlign: 'center'
+            textAlign: "center",
           }}
         >
           <Typography variant="h4" gutterBottom color="error">
             Oops! Có lỗi xảy ra
           </Typography>
           <Typography variant="body1" sx={{ mb: 3 }}>
-            {this.state.error?.message || 'Đã xảy ra lỗi không mong muốn'}
+            {this.state.error?.message || "Đã xảy ra lỗi không mong muốn"}
           </Typography>
-          <Button 
-            variant="contained" 
-            onClick={() => window.location.reload()}
-          >
+          <Button variant="contained" onClick={() => window.location.reload()}>
             Tải lại trang
           </Button>
         </Box>

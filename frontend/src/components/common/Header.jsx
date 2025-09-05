@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,14 +11,14 @@ import {
   Avatar,
   Box,
   Container,
-} from '@mui/material';
+} from "@mui/material";
 import {
   AccountCircle as AccountCircleIcon,
   Home as HomeIcon,
   History as HistoryIcon,
   Add as AddIcon,
-} from '@mui/icons-material';
-import { useAuth } from '../../hooks/useAuth';
+} from "@mui/icons-material";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () => {
   const { user, logout } = useAuth();
@@ -37,24 +37,24 @@ const Header = () => {
   const handleLogout = () => {
     logout();
     handleMenuClose();
-    navigate('/login');
+    navigate("/login");
   };
 
   const isActive = (path) => location.pathname === path;
 
   return (
-    <AppBar 
-      position="static" 
+    <AppBar
+      position="static"
       className="bg-white/10 backdrop-blur-sm border-b border-white/20"
       elevation={0}
     >
       <Container maxWidth="lg">
         <Toolbar className="px-0">
-          <Typography 
-            variant="h6" 
-            component="div" 
+          <Typography
+            variant="h6"
+            component="div"
             className="text-white font-semibold flex-1 cursor-pointer"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
           >
             💰 Expensive App
           </Typography>
@@ -65,17 +65,17 @@ const Header = () => {
               <Button
                 color="inherit"
                 startIcon={<HomeIcon />}
-                onClick={() => navigate('/')}
-                className={`text-white ${isActive('/') ? 'bg-white/20' : ''}`}
+                onClick={() => navigate("/")}
+                className={`text-white ${isActive("/") ? "bg-white/20" : ""}`}
               >
                 Trang chủ
               </Button>
-              
+
               <Button
                 color="inherit"
                 startIcon={<HistoryIcon />}
-                onClick={() => navigate('/history')}
-                className={`text-white ${isActive('/history') ? 'bg-white/20' : ''}`}
+                onClick={() => navigate("/history")}
+                className={`text-white ${isActive("/history") ? "bg-white/20" : ""}`}
               >
                 Lịch sử
               </Button>
@@ -99,9 +99,9 @@ const Header = () => {
                 onClick={handleMenuOpen}
                 color="inherit"
               >
-                <Avatar 
+                <Avatar
                   className="w-8 h-8 bg-white/20 text-white"
-                  alt={user?.name || 'User'}
+                  alt={user?.name || "User"}
                 >
                   {user?.name?.charAt(0).toUpperCase() || <AccountCircleIcon />}
                 </Avatar>
@@ -111,20 +111,20 @@ const Header = () => {
                 id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
+                  vertical: "bottom",
+                  horizontal: "right",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
+                  vertical: "top",
+                  horizontal: "right",
                 }}
                 open={Boolean(anchorEl)}
                 onClose={handleMenuClose}
               >
                 <MenuItem onClick={handleMenuClose}>
                   <Typography variant="body2" className="font-medium">
-                    {user?.name || 'Người dùng'}
+                    {user?.name || "Người dùng"}
                   </Typography>
                 </MenuItem>
                 <MenuItem onClick={handleMenuClose}>Cài đặt</MenuItem>

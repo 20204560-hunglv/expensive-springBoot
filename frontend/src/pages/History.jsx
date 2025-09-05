@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Container,
   Typography,
@@ -17,45 +17,51 @@ import {
   DialogContent,
   DialogActions,
   Chip,
-} from '@mui/material';
+} from "@mui/material";
 import {
   Delete as DeleteIcon,
   Edit as EditIcon,
   FilterList as FilterIcon,
   Search as SearchIcon,
-} from '@mui/icons-material';
-import { useExpense } from '../hooks/useExpense';
+} from "@mui/icons-material";
+import { useExpense } from "../hooks/useExpense";
 
 const History = () => {
   const { expenses, categories, deleteExpense, getCategoryById } = useExpense();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('');
-  const [sortBy, setSortBy] = useState('date');
-  const [deleteDialog, setDeleteDialog] = useState({ open: false, expense: null });
+  const [searchTerm, setSearchTerm] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [sortBy, setSortBy] = useState("date");
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
+    expense: null,
+  });
 
   // Filter and sort expenses
   const filteredExpenses = expenses
-    .filter(expense => {
-      const matchesSearch = expense.description?.toLowerCase().includes(searchTerm.toLowerCase()) || '';
-      const matchesCategory = !categoryFilter || expense.categoryId === categoryFilter;
+    .filter((expense) => {
+      const matchesSearch =
+        expense.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        "";
+      const matchesCategory =
+        !categoryFilter || expense.categoryId === categoryFilter;
       return matchesSearch && matchesCategory;
     })
     .sort((a, b) => {
       switch (sortBy) {
-        case 'amount':
+        case "amount":
           return b.amount - a.amount;
-        case 'category':
+        case "category":
           return a.categoryId - b.categoryId;
-        case 'date':
+        case "date":
         default:
           return new Date(b.date) - new Date(a.date);
       }
     });
 
   const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(amount);
   };
 
@@ -74,14 +80,21 @@ const History = () => {
     setDeleteDialog({ open: false, expense: null });
   };
 
-  const totalFiltered = filteredExpenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const totalFiltered = filteredExpenses.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
 
   return (
     <Container maxWidth="lg">
       <Box className="space-y-6">
         {/* Header */}
         <Box className="text-center">
-          <Typography variant="h4" component="h1" className="text-white font-bold mb-2">
+          <Typography
+            variant="h4"
+            component="h1"
+            className="text-white font-bold mb-2"
+          >
             Lịch sử chi tiêu 📊
           </Typography>
           <Typography variant="body1" className="text-white/80">
@@ -139,7 +152,8 @@ const History = () => {
             <Box className="mt-4 pt-4 border-t border-gray-200">
               <Box className="flex justify-between items-center">
                 <Typography variant="body1">
-                  Hiển thị <strong>{filteredExpenses.length}</strong> / {expenses.length} giao dịch
+                  Hiển thị <strong>{filteredExpenses.length}</strong> /{" "}
+                  {expenses.length} giao dịch
                 </Typography>
                 <Chip
                   label={`Tổng: ${formatCurrency(totalFiltered)}`}
@@ -156,16 +170,14 @@ const History = () => {
           <Card>
             <CardContent className="text-center py-12">
               <Typography variant="h6" color="text.secondary" gutterBottom>
-                {expenses.length === 0 
-                  ? 'Chưa có chi tiêu nào được ghi nhận'
-                  : 'Không tìm thấy giao dịch nào phù hợp'
-                }
+                {expenses.length === 0
+                  ? "Chưa có chi tiêu nào được ghi nhận"
+                  : "Không tìm thấy giao dịch nào phù hợp"}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {expenses.length === 0 
-                  ? 'Hãy thêm chi tiêu đầu tiên của bạn!'
-                  : 'Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm'
-                }
+                {expenses.length === 0
+                  ? "Hãy thêm chi tiêu đầu tiên của bạn!"
+                  : "Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm"}
               </Typography>
             </CardContent>
           </Card>
@@ -174,45 +186,57 @@ const History = () => {
             {filteredExpenses.map((expense) => {
               const category = getCategoryById(expense.categoryId);
               return (
-                <Card key={expense.id} className="hover:shadow-md transition-shadow">
+                <Card
+                  key={expense.id}
+                  className="hover:shadow-md transition-shadow"
+                >
                   <CardContent>
                     <Box className="flex items-center justify-between">
                       <Box className="flex items-center flex-1">
                         <Typography className="text-3xl mr-4">
-                          {category?.icon || '📝'}
+                          {category?.icon || "📝"}
                         </Typography>
                         <Box className="flex-1">
                           <Typography variant="h6" className="font-medium">
-                            {expense.description || 'Không có mô tả'}
+                            {expense.description || "Không có mô tả"}
                           </Typography>
                           <Box className="flex items-center gap-2 mt-1">
                             <Chip
-                              label={category?.name || 'Không phân loại'}
+                              label={category?.name || "Không phân loại"}
                               size="small"
-                              style={{ backgroundColor: category?.color + '20', color: category?.color }}
+                              style={{
+                                backgroundColor: category?.color + "20",
+                                color: category?.color,
+                              }}
                             />
                             <Typography variant="body2" color="text.secondary">
-                              {new Date(expense.date).toLocaleDateString('vi-VN', {
-                                weekday: 'short',
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
-                              })}
+                              {new Date(expense.date).toLocaleDateString(
+                                "vi-VN",
+                                {
+                                  weekday: "short",
+                                  year: "numeric",
+                                  month: "short",
+                                  day: "numeric",
+                                }
+                              )}
                             </Typography>
                           </Box>
                         </Box>
                       </Box>
 
                       <Box className="text-right">
-                        <Typography variant="h6" className="font-bold text-red-600 mb-2">
+                        <Typography
+                          variant="h6"
+                          className="font-bold text-red-600 mb-2"
+                        >
                           -{formatCurrency(expense.amount)}
                         </Typography>
                         <Box className="flex gap-1">
                           <IconButton size="small" color="primary">
                             <EditIcon fontSize="small" />
                           </IconButton>
-                          <IconButton 
-                            size="small" 
+                          <IconButton
+                            size="small"
                             color="error"
                             onClick={() => handleDeleteClick(expense)}
                           >
@@ -240,18 +264,23 @@ const History = () => {
         </DialogTitle>
         <DialogContent>
           <Typography>
-            Bạn có chắc chắn muốn xóa giao dịch "{deleteDialog.expense?.description}" 
-            với số tiền {deleteDialog.expense && formatCurrency(deleteDialog.expense.amount)}?
+            Bạn có chắc chắn muốn xóa giao dịch "
+            {deleteDialog.expense?.description}" với số tiền{" "}
+            {deleteDialog.expense &&
+              formatCurrency(deleteDialog.expense.amount)}
+            ?
           </Typography>
           <Typography variant="body2" color="error" className="mt-2">
             Hành động này không thể hoàn tác.
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteCancel}>
-            Hủy
-          </Button>
-          <Button onClick={handleDeleteConfirm} color="error" variant="contained">
+          <Button onClick={handleDeleteCancel}>Hủy</Button>
+          <Button
+            onClick={handleDeleteConfirm}
+            color="error"
+            variant="contained"
+          >
             Xóa
           </Button>
         </DialogActions>

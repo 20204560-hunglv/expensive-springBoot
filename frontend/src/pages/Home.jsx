@@ -72,7 +72,7 @@ const Home = () => {
         {/* Quick Stats */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
-            <Card className="glass-effect">
+            <Card className="bg-white/25 backdrop-blur-sm border border-white/20">
               <CardContent className="text-center">
                 <Box className="flex justify-center mb-2">
                   <WalletIcon color="primary" sx={{ fontSize: 40 }} />
@@ -91,7 +91,7 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card className="glass-effect">
+            <Card className="bg-white/25 backdrop-blur-sm border border-white/20">
               <CardContent className="text-center">
                 <Box className="flex justify-center mb-2">
                   <ReceiptIcon color="primary" sx={{ fontSize: 40 }} />
@@ -110,7 +110,7 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Card className="glass-effect">
+            <Card className="bg-white/25 backdrop-blur-sm border border-white/20">
               <CardContent className="text-center">
                 <Box className="flex justify-center mb-2">
                   <TrendingUpIcon color="primary" sx={{ fontSize: 40 }} />

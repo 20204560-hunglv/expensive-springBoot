@@ -1,4 +1,4 @@
-import { CURRENCY } from './constants';
+import { CURRENCY } from "./constants";
 
 /**
  * Format currency amount to Vietnamese Dong
@@ -6,12 +6,12 @@ import { CURRENCY } from './constants';
  * @returns {string} Formatted currency string
  */
 export const formatCurrency = (amount) => {
-  if (typeof amount !== 'number') {
-    return '0 ₫';
+  if (typeof amount !== "number") {
+    return "0 ₫";
   }
-  
+
   return new Intl.NumberFormat(CURRENCY.LOCALE, {
-    style: 'currency',
+    style: "currency",
     currency: CURRENCY.CODE,
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
@@ -24,10 +24,10 @@ export const formatCurrency = (amount) => {
  * @returns {string} Formatted number string
  */
 export const formatNumber = (number) => {
-  if (typeof number !== 'number') {
-    return '0';
+  if (typeof number !== "number") {
+    return "0";
   }
-  
+
   return new Intl.NumberFormat(CURRENCY.LOCALE).format(number);
 };
 
@@ -38,21 +38,24 @@ export const formatNumber = (number) => {
  * @returns {string} Formatted date string
  */
 export const formatDate = (date, options = {}) => {
-  if (!date) return '';
-  
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  
+  if (!date) return "";
+
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+
   if (isNaN(dateObj.getTime())) {
-    return '';
+    return "";
   }
 
   const defaultOptions = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
-  return new Intl.DateTimeFormat(CURRENCY.LOCALE, { ...defaultOptions, ...options }).format(dateObj);
+  return new Intl.DateTimeFormat(CURRENCY.LOCALE, {
+    ...defaultOptions,
+    ...options,
+  }).format(dateObj);
 };
 
 /**
@@ -61,12 +64,12 @@ export const formatDate = (date, options = {}) => {
  * @returns {string} Formatted date string
  */
 export const formatDateShort = (date) => {
-  if (!date) return '';
-  
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  
+  if (!date) return "";
+
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+
   if (isNaN(dateObj.getTime())) {
-    return '';
+    return "";
   }
 
   return dateObj.toLocaleDateString(CURRENCY.LOCALE);
@@ -78,12 +81,12 @@ export const formatDateShort = (date) => {
  * @returns {string} Relative time string
  */
 export const formatRelativeTime = (date) => {
-  if (!date) return '';
-  
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  
+  if (!date) return "";
+
+  const dateObj = typeof date === "string" ? new Date(date) : date;
+
   if (isNaN(dateObj.getTime())) {
-    return '';
+    return "";
   }
 
   const now = new Date();
@@ -93,13 +96,13 @@ export const formatRelativeTime = (date) => {
   const diffMinutes = Math.floor(diffTime / (1000 * 60));
 
   if (diffMinutes < 1) {
-    return 'Vừa xong';
+    return "Vừa xong";
   } else if (diffMinutes < 60) {
     return `${diffMinutes} phút trước`;
   } else if (diffHours < 24) {
     return `${diffHours} giờ trước`;
   } else if (diffDays === 1) {
-    return 'Hôm qua';
+    return "Hôm qua";
   } else if (diffDays < 7) {
     return `${diffDays} ngày trước`;
   } else {
@@ -113,7 +116,7 @@ export const formatRelativeTime = (date) => {
  * @returns {string} Capitalized string
  */
 export const capitalize = (str) => {
-  if (!str || typeof str !== 'string') return '';
+  if (!str || typeof str !== "string") return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
@@ -124,11 +127,11 @@ export const capitalize = (str) => {
  * @returns {string} Truncated text
  */
 export const truncateText = (text, maxLength = 50) => {
-  if (!text || typeof text !== 'string') return '';
-  
+  if (!text || typeof text !== "string") return "";
+
   if (text.length <= maxLength) {
     return text;
   }
-  
-  return text.substring(0, maxLength).trim() + '...';
+
+  return text.substring(0, maxLength).trim() + "...";
 };

@@ -20,7 +20,7 @@ export const initialExpenseState = {
   filters: {
     category: null,
     dateRange: null,
-    sortBy: EXPENSE_SORT.DATE_DESC.split('_')[0], // "date"
-    sortOrder: EXPENSE_SORT.DATE_DESC.split('_')[1], // "desc"
+    sortBy: EXPENSE_SORT.DATE_DESC.split("_")[0], // "date"
+    sortOrder: EXPENSE_SORT.DATE_DESC.split("_")[1], // "desc"
   },
 };

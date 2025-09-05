@@ -54,7 +54,8 @@ export const VALIDATION_MESSAGES = {
   EMAIL_INVALID: "Email không hợp lệ",
   PASSWORD_TOO_SHORT: `Mật khẩu phải có ít nhất ${PASSWORD_RULES.MIN_LENGTH} ký tự`,
   USERNAME_TOO_SHORT: `Tên đăng nhập phải có ít nhất ${USERNAME_RULES.MIN_LENGTH} ký tự`,
-  USERNAME_INVALID: "Tên đăng nhập chỉ được chứa chữ cái, số, dấu gạch dưới và dấu chấm",
+  USERNAME_INVALID:
+    "Tên đăng nhập chỉ được chứa chữ cái, số, dấu gạch dưới và dấu chấm",
   NAME_TOO_SHORT: `Tên phải có ít nhất ${NAME_RULES.MIN_LENGTH} ký tự`,
   NAME_INVALID: "Tên chỉ được chứa chữ cái và khoảng trắng",
   AMOUNT_TOO_SMALL: `Số tiền phải ít nhất ${EXPENSE_VALIDATION.AMOUNT.MIN.toLocaleString()} VND`,

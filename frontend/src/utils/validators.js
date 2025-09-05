@@ -1,4 +1,4 @@
-import { VALIDATION } from './constants';
+import { VALIDATION } from "./constants";
 
 /**
  * Validate email format
@@ -6,8 +6,8 @@ import { VALIDATION } from './constants';
  * @returns {boolean} True if email is valid
  */
 export const isValidEmail = (email) => {
-  if (!email || typeof email !== 'string') return false;
-  
+  if (!email || typeof email !== "string") return false;
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return emailRegex.test(email.trim());
 };
@@ -18,10 +18,10 @@ export const isValidEmail = (email) => {
  * @returns {object} Validation result with isValid and message
  */
 export const validatePassword = (password) => {
-  if (!password || typeof password !== 'string') {
+  if (!password || typeof password !== "string") {
     return {
       isValid: false,
-      message: 'Mật khẩu không được để trống',
+      message: "Mật khẩu không được để trống",
     };
   }
 
@@ -39,13 +39,13 @@ export const validatePassword = (password) => {
   if (!hasNumber || !hasLetter) {
     return {
       isValid: false,
-      message: 'Mật khẩu phải chứa ít nhất một chữ cái và một số',
+      message: "Mật khẩu phải chứa ít nhất một chữ cái và một số",
     };
   }
 
   return {
     isValid: true,
-    message: 'Mật khẩu hợp lệ',
+    message: "Mật khẩu hợp lệ",
   };
 };
 
@@ -55,10 +55,10 @@ export const validatePassword = (password) => {
  * @returns {object} Validation result with isValid and message
  */
 export const validateUsername = (username) => {
-  if (!username || typeof username !== 'string') {
+  if (!username || typeof username !== "string") {
     return {
       isValid: false,
-      message: 'Tên đăng nhập không được để trống',
+      message: "Tên đăng nhập không được để trống",
     };
   }
 
@@ -76,13 +76,13 @@ export const validateUsername = (username) => {
   if (!validChars.test(trimmed)) {
     return {
       isValid: false,
-      message: 'Tên đăng nhập chỉ được chứa chữ cái, số và dấu gạch dưới',
+      message: "Tên đăng nhập chỉ được chứa chữ cái, số và dấu gạch dưới",
     };
   }
 
   return {
     isValid: true,
-    message: 'Tên đăng nhập hợp lệ',
+    message: "Tên đăng nhập hợp lệ",
   };
 };
 
@@ -92,32 +92,32 @@ export const validateUsername = (username) => {
  * @returns {object} Validation result with isValid and message
  */
 export const validateExpenseAmount = (amount) => {
-  const numAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  const numAmount = typeof amount === "string" ? parseFloat(amount) : amount;
 
   if (isNaN(numAmount) || numAmount <= 0) {
     return {
       isValid: false,
-      message: 'Số tiền phải là một số dương',
+      message: "Số tiền phải là một số dương",
     };
   }
 
   if (numAmount < VALIDATION.MIN_EXPENSE_AMOUNT) {
     return {
       isValid: false,
-      message: `Số tiền tối thiểu là ${VALIDATION.MIN_EXPENSE_AMOUNT.toLocaleString('vi-VN')} ₫`,
+      message: `Số tiền tối thiểu là ${VALIDATION.MIN_EXPENSE_AMOUNT.toLocaleString("vi-VN")} ₫`,
     };
   }
 
   if (numAmount > VALIDATION.MAX_EXPENSE_AMOUNT) {
     return {
       isValid: false,
-      message: `Số tiền tối đa là ${VALIDATION.MAX_EXPENSE_AMOUNT.toLocaleString('vi-VN')} ₫`,
+      message: `Số tiền tối đa là ${VALIDATION.MAX_EXPENSE_AMOUNT.toLocaleString("vi-VN")} ₫`,
     };
   }
 
   return {
     isValid: true,
-    message: 'Số tiền hợp lệ',
+    message: "Số tiền hợp lệ",
   };
 };
 
@@ -127,15 +127,15 @@ export const validateExpenseAmount = (amount) => {
  * @param {string} fieldName - Name of the field for error message
  * @returns {object} Validation result with isValid and message
  */
-export const validateRequired = (value, fieldName = 'Trường này') => {
-  if (value === null || value === undefined || value === '') {
+export const validateRequired = (value, fieldName = "Trường này") => {
+  if (value === null || value === undefined || value === "") {
     return {
       isValid: false,
       message: `${fieldName} không được để trống`,
     };
   }
 
-  if (typeof value === 'string' && value.trim() === '') {
+  if (typeof value === "string" && value.trim() === "") {
     return {
       isValid: false,
       message: `${fieldName} không được để trống`,
@@ -144,7 +144,7 @@ export const validateRequired = (value, fieldName = 'Trường này') => {
 
   return {
     isValid: true,
-    message: 'Hợp lệ',
+    message: "Hợp lệ",
   };
 };
 
@@ -157,16 +157,16 @@ export const validateDate = (date) => {
   if (!date) {
     return {
       isValid: false,
-      message: 'Ngày không được để trống',
+      message: "Ngày không được để trống",
     };
   }
 
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateObj = typeof date === "string" ? new Date(date) : date;
 
   if (isNaN(dateObj.getTime())) {
     return {
       isValid: false,
-      message: 'Ngày không hợp lệ',
+      message: "Ngày không hợp lệ",
     };
   }
 
@@ -177,13 +177,13 @@ export const validateDate = (date) => {
   if (dateObj > today) {
     return {
       isValid: false,
-      message: 'Ngày không thể trong tương lai',
+      message: "Ngày không thể trong tương lai",
     };
   }
 
   return {
     isValid: true,
-    message: 'Ngày hợp lệ',
+    message: "Ngày hợp lệ",
   };
 };
 
@@ -198,7 +198,7 @@ export const validateForm = (data, rules) => {
   let isValid = true;
   let firstError = null;
 
-  Object.keys(rules).forEach(field => {
+  Object.keys(rules).forEach((field) => {
     const rule = rules[field];
     const value = data[field];
 
@@ -212,7 +212,12 @@ export const validateForm = (data, rules) => {
       }
     }
 
-    if (rule.validator && value !== null && value !== undefined && value !== '') {
+    if (
+      rule.validator &&
+      value !== null &&
+      value !== undefined &&
+      value !== ""
+    ) {
       const result = rule.validator(value);
       if (!result.isValid) {
         errors[field] = result.message;

@@ -1,86 +1,86 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    mode: 'light',
+    mode: "light",
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
-      contrastText: '#ffffff',
+      main: "#1976d2",
+      light: "#42a5f5",
+      dark: "#1565c0",
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: '#dc004e',
-      light: '#ff5983',
-      dark: '#9a0036',
-      contrastText: '#ffffff',
+      main: "#dc004e",
+      light: "#ff5983",
+      dark: "#9a0036",
+      contrastText: "#ffffff",
     },
     success: {
-      main: '#2e7d32',
-      light: '#4caf50',
-      dark: '#1b5e20',
+      main: "#2e7d32",
+      light: "#4caf50",
+      dark: "#1b5e20",
     },
     warning: {
-      main: '#ed6c02',
-      light: '#ff9800',
-      dark: '#e65100',
+      main: "#ed6c02",
+      light: "#ff9800",
+      dark: "#e65100",
     },
     error: {
-      main: '#d32f2f',
-      light: '#ef5350',
-      dark: '#c62828',
+      main: "#d32f2f",
+      light: "#ef5350",
+      dark: "#c62828",
     },
     background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
+      default: "#f5f5f5",
+      paper: "#ffffff",
     },
     text: {
-      primary: '#212121',
-      secondary: '#757575',
+      primary: "#212121",
+      secondary: "#757575",
     },
   },
   typography: {
     fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
     h1: {
-      fontSize: '2.5rem',
+      fontSize: "2.5rem",
       fontWeight: 500,
       lineHeight: 1.2,
     },
     h2: {
-      fontSize: '2rem',
+      fontSize: "2rem",
       fontWeight: 500,
       lineHeight: 1.3,
     },
     h3: {
-      fontSize: '1.75rem',
+      fontSize: "1.75rem",
       fontWeight: 500,
       lineHeight: 1.4,
     },
     h4: {
-      fontSize: '1.5rem',
+      fontSize: "1.5rem",
       fontWeight: 600,
       lineHeight: 1.4,
     },
     h5: {
-      fontSize: '1.25rem',
+      fontSize: "1.25rem",
       fontWeight: 500,
       lineHeight: 1.5,
     },
     h6: {
-      fontSize: '1rem',
+      fontSize: "1rem",
       fontWeight: 500,
       lineHeight: 1.6,
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: "1rem",
       lineHeight: 1.5,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: "0.875rem",
       lineHeight: 1.43,
     },
     button: {
-      textTransform: 'none',
+      textTransform: "none",
       fontWeight: 500,
     },
   },
@@ -91,18 +91,18 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: "none",
           borderRadius: 8,
           fontWeight: 500,
-          padding: '8px 16px',
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: '0 2px 4px rgba(0,0,0,0.12)',
+          padding: "8px 16px",
+          boxShadow: "none",
+          "&:hover": {
+            boxShadow: "0 2px 4px rgba(0,0,0,0.12)",
           },
         },
         contained: {
-          '&:hover': {
-            boxShadow: '0 4px 8px rgba(0,0,0,0.12)',
+          "&:hover": {
+            boxShadow: "0 4px 8px rgba(0,0,0,0.12)",
           },
         },
       },
@@ -111,15 +111,15 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-          border: '1px solid rgba(0,0,0,0.06)',
+          boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+          border: "1px solid rgba(0,0,0,0.06)",
         },
       },
     },
     MuiTextField: {
       styleOverrides: {
         root: {
-          '& .MuiOutlinedInput-root': {
+          "& .MuiOutlinedInput-root": {
             borderRadius: 8,
           },
         },
@@ -135,7 +135,7 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: '0 1px 3px rgba(0,0,0,0.12)',
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12)",
         },
       },
     },
