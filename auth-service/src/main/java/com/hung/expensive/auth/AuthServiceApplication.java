@@ -2,16 +2,12 @@ package com.hung.expensive.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * Why: Main application class cho Auth Service
- * Design decision: Enable Discovery client để register với service discovery
- * Context: Microservice chịu trách nhiệm authentication và user management
- * Migration: Tách từ monolithic app, giữ nguyên business logic
+ * Auth Service - Đơn giản cho người mới học Spring Boot
+ * Chỉ có những tính năng cơ bản: register, login
  */
 @SpringBootApplication
-@EnableDiscoveryClient // Why: Register service với service discovery
 public class AuthServiceApplication {
 
     public static void main(String[] args) {
