@@ -1,0 +1,35 @@
+# Why: Eureka Server configuration cho service discovery
+server:
+  port: 8761
+
+spring:
+  application:
+    name: service-discovery
+
+# Why: Eureka Server configuration - disable self-registration
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false  # Why: Eureka server không tự register với chính nó
+    fetch-registry: false        # Why: Không cần fetch registry từ server khác
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  server:
+    enable-self-preservation: false  # Why: Disable trong development environment
+
+# Why: Management endpoints cho monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Why: Logging configuration cho debugging
+logging:
+  level:
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO

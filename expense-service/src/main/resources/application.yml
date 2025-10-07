@@ -1,0 +1,60 @@
+# Why: Expense Service configuration
+server:
+  port: 8083
+
+spring:
+  application:
+    name: expense-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/expensive_expense?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+
+# Why: Eureka Client configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Why: Config Client configuration
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: expense-service
+      profile: dev
+
+# Why: Feign Client configuration
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+
+# Why: Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# Why: Logging configuration
+logging:
+  level:
+    com.hung.expensive.expense: DEBUG
+    org.springframework.cloud.openfeign: DEBUG

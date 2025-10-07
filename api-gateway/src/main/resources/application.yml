@@ -1,0 +1,82 @@
+# Why: API Gateway configuration
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # Why: Auth service routes - public endpoints
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+          filters:
+            - StripPrefix=2
+        
+        # Why: User service routes - protected endpoints
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=2
+            - name: JwtAuthenticationFilter
+        
+        # Why: Expense service routes - protected endpoints
+        - id: expense-service
+          uri: lb://expense-service
+          predicates:
+            - Path=/api/expenses/**
+          filters:
+            - StripPrefix=2
+            - name: JwtAuthenticationFilter
+        
+        # Why: Category service routes - protected endpoints
+        - id: category-service
+          uri: lb://category-service
+          predicates:
+            - Path=/api/categories/**
+          filters:
+            - StripPrefix=2
+            - name: JwtAuthenticationFilter
+      
+      # Why: Global CORS configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: true
+
+# Why: Eureka Client configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Why: Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+
+# Why: Logging configuration
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.security: DEBUG

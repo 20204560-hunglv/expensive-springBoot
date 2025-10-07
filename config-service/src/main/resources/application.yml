@@ -1,0 +1,38 @@
+# Why: Config Server configuration
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/config-repo  # Why: Local git repo cho development
+          default-label: main
+        native:
+          search-locations: classpath:/config  # Why: Fallback to classpath configs
+
+# Why: Eureka Client configuration
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# Why: Management endpoints cho config refresh
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh,bus-refresh
+  endpoint:
+    health:
+      show-details: always
+
+# Why: Logging configuration
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
