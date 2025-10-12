@@ -1,4 +1,4 @@
-# Auth Service - Cấu hình đơn giản cho người mới học
+# Auth Service - Cấu hình MySQL cho production
 server:
   port: 8081
 
@@ -6,23 +6,22 @@ spring:
   application:
     name: auth-service
   
-  # H2 Database - đơn giản cho học tập
+  # MySQL Database - Production ready
   datasource:
-    url: jdbc:h2:mem:authdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
+    url: jdbc:mysql://localhost:3306/expensive_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: expensive_user
+    password: expensive_password
     
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
-    
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+      ddl-auto: validate  # Why: Update schema thay vì create-drop để preserve data
+    database-platform: org.hibernate.dialect.MySQLDialect  # Why: Updated dialect for MySQL 8+
+    show-sql: true  # Why: Show SQL trong development để debug
+    properties:
+      hibernate:
+        format_sql: true  # Why: Format SQL queries để dễ đọc
+        use_sql_comments: true  # Why: Show comments trong generated SQL
 
 # Logging đơn giản
 logging:

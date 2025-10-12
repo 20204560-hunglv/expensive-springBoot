@@ -1,0 +1,27 @@
+# Why: Development profile - sử dụng MySQL cho development
+# Design decision: Consistent database cho tất cả environments
+spring:
+  # MySQL Database - Development với MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/expensive_auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: expensive_user
+    password: expensive_password
+    
+  jpa:
+    hibernate:
+      ddl-auto: update  # Why: Update schema để preserve data trong development
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true  # Why: Show SQL trong development để debug
+    properties:
+      hibernate:
+        format_sql: true  # Why: Format SQL queries để dễ đọc
+        use_sql_comments: true  # Why: Show comments trong generated SQL
+        
+# Why: Development logging level - verbose để debug
+logging:
+  level:
+    com.hung.expensive: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE  # Why: Show parameter values

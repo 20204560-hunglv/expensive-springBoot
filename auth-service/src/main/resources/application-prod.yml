@@ -1,0 +1,27 @@
+# Why: Production profile - sử dụng MySQL cho production
+# Design decision: Tách riêng config cho từng environment
+spring:
+  # MySQL Database - Production ready
+  datasource:
+    url: jdbc:mysql://localhost:3306/expensive_auth?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: expensive_user
+    password: expensive_password
+    
+  jpa:
+    hibernate:
+      ddl-auto: update  # Why: Update schema thay vì create-drop để preserve data
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    show-sql: false  # Why: Tắt SQL logging trong production
+    properties:
+      hibernate:
+        format_sql: false
+        use_sql_comments: false
+        
+# Why: Production logging level
+logging:
+  level:
+    com.hung.expensive: INFO
+    org.springframework.web: WARN
+    org.hibernate.SQL: WARN
+
